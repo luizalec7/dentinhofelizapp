@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quiz - Pergunta</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Quiz</h2>
+
+    <div th:if="${quiz != null}">
+        <form th:action="@{/quiz/responder}" method="post">
+            <input type="hidden" name="idQuiz" th:value="${quiz.id}">
+
+            <h3 th:text="${quiz.pergunta}"></h3>
+
+            <div th:each="opcao : ${quiz.opcoes}">
+                <input type="radio" th:id="${opcao}" name="resposta" th:value="${opcao}" required>
+                <label th:for="${opcao}" th:text="${opcao}"></label><br>
+            </div>
+
+            <button type="submit">Responder</button>
+        </form>
+    </div>
+
+    <div th:if="${quiz == null}">
+        <p>Nenhuma pergunta disponível.</p>
+    </div>
+
+</div>
+
+</body>
+</html>

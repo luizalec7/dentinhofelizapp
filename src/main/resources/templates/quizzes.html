@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Quizzes</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Quizzes</h2>
+<div th:if="${quizzes}">
+    <div th:each="quiz : ${quizzes}">
+        <h3 th:text="${quiz.pergunta}"></h3>
+        <form th:action="@{/quiz/responder}" method="post">
+            <input type="hidden" name="idQuiz" th:value="${quiz.id}">
+            <div th:each="opcao : ${quiz.opcoes}">
+                <input type="radio" th:name="resposta" th:value="${opcao}">
+                <label th:text="${opcao}"></label><br>
+            </div>
+            <button type="submit">Responder</button>
+        </form>
+    </div>
+</div>
+<div th:if="${erro}">
+    <p style="color:red;" th:text="${erro}"></p>
+</div>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Alarme - Dentinho Feliz</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <img src="/img/logo.png" alt="Dentinho Feliz" class="logo">
+    <h2>Defina seu Alarme</h2>
+
+    <form id="alarmeForm" action="/alarme" method="post">
+        <input type="time" id="horario" name="horario" required>
+        <button type="submit">Definir Alarme</button>
+    </form>
+
+    <h3>Alarmes Ativos</h3>
+    <ul>
+        <li th:each="alarme : ${alarmes}" th:text="${alarme.horario}"></li>
+    </ul>
+
+    <a href="/home"><button>Voltar</button></a>
+</div>
+
+<script src="/js/scripts.js"></script>
+</body>
+</html>

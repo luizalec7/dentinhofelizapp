@@ -1,0 +1,89 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilização geral */
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    text-align: center;
+}
+
+/* Contêiner principal */
+.container {
+    width: 90%;
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Botões */
+button {
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #b71c1c;
+}
+
+/* Formulários */
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* Links */
+a {
+    color: #1565c0;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Estilização específica para as páginas */
+.logo {
+    width: 150px;
+    margin: 20px auto;
+}
+
+.quiz-container, .duvida-container, .alarme-container {
+    margin-top: 20px;
+}
+
+/* Lista de dúvidas */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #e0e0e0;
+    margin: 5px 0;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+/* Estilo para a mensagem do mascote */
+.mascote {
+    width: 80px;
+    display: block;
+    margin: 15px auto;
+}

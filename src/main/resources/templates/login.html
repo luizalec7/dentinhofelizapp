@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Dentinho Feliz</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<div class="container">
+    <img src="/img/logo.png" alt="Dentinho Feliz" class="logo">
+    <h2>Faça seu login</h2>
+
+    <form id="loginForm" action="/login" method="post">
+        <input type="email" id="email" name="email" placeholder="E-mail" required>
+        <input type="password" id="senha" name="senha" placeholder="Senha" required>
+        <button type="submit">Acessar</button>
+    </form>
+
+    <p>Não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
+
+    <div th:if="${erro}">
+        <p style="color: red;" th:text="${erro}"></p>
+    </div>
+</div>
+
+<script src="/js/scripts.js"></script>
+</body>
+</html>
