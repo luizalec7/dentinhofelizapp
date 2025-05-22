@@ -5,27 +5,29 @@ import com.dentinhofelizapp.service.AlarmeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @Controller
 public class AlarmeController {
+
     @Autowired
     private AlarmeService alarmeService;
 
     @GetMapping("/alarme")
-    public String listarAlarmes(Model model) {
-        List<Alarme> alarmes = alarmeService.listarAlarmes();
+    public String mostrarAlarme(Model model) {
+        List<Alarme> alarmes = alarmeService.listarTodos();
         model.addAttribute("alarmes", alarmes);
-        return "alarme";
+        return "alarme"; // templates/alarme.html
     }
 
     @PostMapping("/alarme")
-    public String definirAlarme(@RequestParam String horario) {
-        alarmeService.definirAlarme(horario);
+    public String salvarAlarme(@RequestParam String horario) {
+        Alarme novoAlarme = new Alarme();
+        novoAlarme.setHorario(horario);
+        novoAlarme.setAtivo(true);
+        alarmeService.salvar(novoAlarme);
         return "redirect:/alarme";
     }
 }

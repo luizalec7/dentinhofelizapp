@@ -2,12 +2,10 @@ package com.dentinhofelizapp.repository;
 
 import com.dentinhofelizapp.model.RespostaQuiz;
 import com.dentinhofelizapp.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-@Repository
-public interface RespostaQuizRepository extends JpaRepository<RespostaQuiz, Long> {
+public interface RespostaQuizRepository extends MongoRepository<RespostaQuiz, String> {
     List<RespostaQuiz> findByUsuario(Usuario usuario);
 }

@@ -6,27 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PremiacaoService {
+
     @Autowired
     private PremiacaoRepository premiacaoRepository;
 
-    public List<Premiacao> listarPremiacoes() {
-        return premiacaoRepository.findAll();
-    }
-
-    public Optional<Premiacao> buscarPorId(Long id) {
-        return premiacaoRepository.findById(id);
-    }
-
-    public Premiacao salvarPremiacao(Premiacao premiacao) {
+    public Premiacao salvar(Premiacao premiacao) {
         return premiacaoRepository.save(premiacao);
     }
 
-    public void deletarPremiacao(Long id) {
+    public Premiacao buscarPorId(String id) {
+        return premiacaoRepository.findById(id).orElse(null);
+    }
+
+    public List<Premiacao> listarTodos() {
+        return premiacaoRepository.findAll();
+    }
+
+    public void deletar(String id) {
         premiacaoRepository.deleteById(id);
     }
 }
-

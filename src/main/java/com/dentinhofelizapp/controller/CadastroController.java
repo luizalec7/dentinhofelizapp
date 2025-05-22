@@ -17,7 +17,7 @@ public class CadastroController {
 
     @GetMapping("/cadastro")
     public String mostrarCadastro() {
-        return "cadastro"; // Retorna a página de cadastro (cadastro.html)
+        return "cadastro"; // cadastro.html em /templates
     }
 
     @PostMapping("/salvarCadastro")
@@ -26,8 +26,7 @@ public class CadastroController {
                                  @RequestParam String senha,
                                  Model model) {
         Usuario novoUsuario = new Usuario(nome, email, senha);
-        usuarioService.salvarUsuario(novoUsuario);
-        return "redirect:/"; // Redireciona para a página de login após o cadastro
+        usuarioService.salvar(novoUsuario);
+        return "redirect:/";
     }
 }
-

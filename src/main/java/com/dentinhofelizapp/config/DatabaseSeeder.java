@@ -11,12 +11,13 @@ import java.util.List;
 
 @Component
 public class DatabaseSeeder {
+
     @Autowired
     private QuizRepository quizRepository;
 
     @PostConstruct
     public void inserirPerguntas() {
-        if (quizRepository.count() == 0) { // Garante que não insere duplicado
+        if (quizRepository.count() == 0) {
             List<Quiz> quizzes = Arrays.asList(
                     new Quiz("Qual o tempo mínimo recomendado para escovar os dentes?",
                             Arrays.asList("10 segundos", "30 segundos", "2 minutos", "5 minutos"),

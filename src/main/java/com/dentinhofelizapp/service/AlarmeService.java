@@ -6,28 +6,26 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AlarmeService {
+
     @Autowired
     private AlarmeRepository alarmeRepository;
 
-    public List<Alarme> listarAlarmes() {
-        return alarmeRepository.findAll();
-    }
-
-    public Optional<Alarme> buscarPorId(Long id) {
-        return alarmeRepository.findById(id);
-    }
-
-    public Alarme definirAlarme(String horario) {
-        Alarme alarme = new Alarme();
-        alarme.setHorario(horario);
+    public Alarme salvar(Alarme alarme) {
         return alarmeRepository.save(alarme);
     }
 
-    public void deletarAlarme(Long id) {
+    public Alarme buscarPorId(String id) {
+        return alarmeRepository.findById(id).orElse(null);
+    }
+
+    public List<Alarme> listarTodos() {
+        return alarmeRepository.findAll();
+    }
+
+    public void deletar(String id) {
         alarmeRepository.deleteById(id);
     }
 }

@@ -6,14 +6,11 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-
 <div class="container">
     <h2>Quiz</h2>
 
     <div th:if="${quiz != null}">
         <form th:action="@{/quiz/responder}" method="post">
-            <input type="hidden" name="idQuiz" th:value="${quiz.id}">
-
             <h3 th:text="${quiz.pergunta}"></h3>
 
             <div th:each="opcao : ${quiz.opcoes}">
@@ -26,10 +23,8 @@
     </div>
 
     <div th:if="${quiz == null}">
-        <p>Nenhuma pergunta disponível.</p>
+        <p>Quiz não encontrado.</p>
     </div>
-
 </div>
-
 </body>
 </html>

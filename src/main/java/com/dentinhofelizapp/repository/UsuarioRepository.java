@@ -1,12 +1,11 @@
 package com.dentinhofelizapp.repository;
 
 import com.dentinhofelizapp.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-    Optional<Usuario> findByEmail(String email);
+public interface UsuarioRepository extends MongoRepository<Usuario, String> {
+    Optional<Usuario> findByEmailAndSenha(String email, String senha);
 }

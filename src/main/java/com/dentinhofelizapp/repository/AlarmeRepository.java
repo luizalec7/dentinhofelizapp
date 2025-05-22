@@ -1,10 +1,7 @@
 package com.dentinhofelizapp.repository;
 
 import com.dentinhofelizapp.model.Alarme;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-public interface AlarmeRepository extends JpaRepository<Alarme, Long> {
+public interface AlarmeRepository extends MongoRepository<Alarme, String> {
 }
-

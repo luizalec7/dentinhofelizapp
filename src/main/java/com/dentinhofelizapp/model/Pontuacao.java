@@ -1,35 +1,35 @@
 package com.dentinhofelizapp.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
 @Data
+@Document(collection = "pontuacoes")
 public class Pontuacao {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "usuario_id", nullable = false)
+    @Id
+    private String id;
+
+    @DBRef
     private Usuario usuario;
 
     private int pontos;
 
-    public Long getId() {
+    public Pontuacao() {}
+
+    public Pontuacao(Usuario usuario, int pontos) {
+        this.usuario = usuario;
+        this.pontos = pontos;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
-    }
-
-    public Usuario getUsuario() {
-        return usuario;
-    }
-
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
     }
 
     public int getPontos() {

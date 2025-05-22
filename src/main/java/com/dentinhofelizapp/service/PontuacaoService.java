@@ -7,25 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PontuacaoService {
+
     @Autowired
     private PontuacaoRepository pontuacaoRepository;
 
-    public List<Pontuacao> listarPontuacoes() {
+    public List<Pontuacao> listarTodas() {
         return pontuacaoRepository.findAll();
     }
 
-    public List<Pontuacao> listarPontuacoesPorUsuario(Usuario usuario) {
+    public List<Pontuacao> listarPorUsuario(Usuario usuario) {
         return pontuacaoRepository.findByUsuario(usuario);
     }
 
-    public Pontuacao adicionarPontuacao(Usuario usuario, int pontos) {
-        Pontuacao pontuacao = new Pontuacao();
-        pontuacao.setUsuario(usuario);
-        pontuacao.setPontos(pontos);
+    public Pontuacao salvar(Pontuacao pontuacao) {
         return pontuacaoRepository.save(pontuacao);
     }
-}
 
+    public void deletarPorId(String id) {
+        pontuacaoRepository.deleteById(id);
+    }
+
+    public Optional<Pontuacao> buscarPorId(String id) {
+        return pontuacaoRepository.findById(id);
+    }
+}

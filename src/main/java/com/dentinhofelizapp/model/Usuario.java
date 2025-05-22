@@ -1,25 +1,18 @@
 package com.dentinhofelizapp.model;
 
-import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
 @Data
+@Document(collection = "usuarios")
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
-    @Column(nullable = false)
     private String nome;
-
-    @Column(nullable = false, unique = true)
     private String email;
-
-    @Column(nullable = false)
     private String senha;
-
-    @Column(nullable = false)
     private int pontuacao = 0;
 
     public Usuario() {}
@@ -28,6 +21,14 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.senha = senha;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -46,14 +47,6 @@ public class Usuario {
         this.pontuacao = pontuacao;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getEmail() {
         return email;
     }
@@ -70,4 +63,3 @@ public class Usuario {
         this.senha = senha;
     }
 }
-

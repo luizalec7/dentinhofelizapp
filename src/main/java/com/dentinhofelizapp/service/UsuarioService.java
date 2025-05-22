@@ -10,31 +10,37 @@ import java.util.Optional;
 
 @Service
 public class UsuarioService {
+
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public Usuario login(String email, String senha) {
-        Optional<Usuario> usuarioOptional = usuarioRepository.findByEmail(email);
-        return usuarioOptional.filter(u -> u.getSenha().equals(senha)).orElse(null);
-    }
-
-    public List<Usuario> listarUsuarios() {
-        return usuarioRepository.findAll();
-    }
-
-    public Optional<Usuario> buscarPorId(Long id) {
-        return usuarioRepository.findById(id);
-    }
-
-    public Usuario salvarUsuario(Usuario usuario) {
+    public Usuario salvar(Usuario usuario) {
         return usuarioRepository.save(usuario);
     }
 
-    public void deletarUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+    public Usuario buscarPorId(String id) {
+        return usuarioRepository.findById(id).orElse(null);
     }
 
-    public Optional<Usuario> buscarPorEmail(String email) {
-        return usuarioRepository.findByEmail(email);
+    public void adicionarPontuacao(String usuarioId, int pontos) {
+        Usuario usuario = usuarioRepository.findById(usuarioId).orElse(null);
+        if (usuario != null) {
+            int novaPontuacao = usuario.getPontuacao() + pontos;
+            usuario.setPontuacao(novaPontuacao);
+            usuarioRepository.save(usuario);
+        }
+    }
+
+    public Optional<Usuario> buscarPorEmailESenha(String email, String senha) {
+        return usuarioRepository.findByEmailAndSenha(email, senha);
+    }
+
+
+    public List<Usuario> listarTodos() {
+        return usuarioRepository.findAll();
+    }
+
+    public void deletar(String id) {
+        usuarioRepository.deleteById(id);
     }
 }

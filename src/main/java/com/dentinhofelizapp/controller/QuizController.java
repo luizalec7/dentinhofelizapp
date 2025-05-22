@@ -1,19 +1,18 @@
 package com.dentinhofelizapp.controller;
 
 import com.dentinhofelizapp.model.Quiz;
+import com.dentinhofelizapp.model.RespostaQuiz;
 import com.dentinhofelizapp.model.Usuario;
 import com.dentinhofelizapp.service.QuizService;
+import com.dentinhofelizapp.service.RespostaQuizService;
 import com.dentinhofelizapp.service.UsuarioService;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 public class QuizController {
@@ -24,73 +23,65 @@ public class QuizController {
     @Autowired
     private UsuarioService usuarioService;
 
-    /**
-     * Inicia o quiz e armazena a lista de perguntas na sessão.
-     */
+    @Autowired
+    private RespostaQuizService respostaQuizService;
+
     @GetMapping("/quizzes")
-    public String iniciarQuiz(HttpSession session) {
-        List<Quiz> quizzes = quizService.listarQuizzes();
+    public String iniciarQuiz(HttpSession session, Model model) {
+        List<Quiz> quizzes = quizService.listarTodos();
         if (quizzes.isEmpty()) {
-            return "redirect:/home"; // Caso não haja perguntas, redireciona para home
+            model.addAttribute("erro", "Nenhum quiz disponível.");
+            return "quiz-pergunta";
         }
 
         session.setAttribute("quizzes", quizzes);
-        session.setAttribute("indicePergunta", 0);
+        session.setAttribute("indexAtual", 0);
         session.setAttribute("pontuacao", 0);
 
-        return "redirect:/quiz/pergunta";
+        Quiz primeiraPergunta = quizzes.get(0);
+        model.addAttribute("quiz", primeiraPergunta);
+        return "quiz-pergunta";
     }
 
-    /**
-     * Exibe a próxima pergunta do quiz.
-     */
-    @GetMapping("/quiz/pergunta")
-    public String mostrarPergunta(HttpSession session, Model model) {
-        List<Quiz> quizzes = (List<Quiz>) session.getAttribute("quizzes");
-        Integer indicePergunta = (Integer) session.getAttribute("indicePergunta");
-
-        if (quizzes == null || indicePergunta == null || indicePergunta >= quizzes.size()) {
-            return "redirect:/quiz/resultado"; // Se todas as perguntas foram respondidas, exibe o resultado
-        }
-
-        model.addAttribute("quiz", quizzes.get(indicePergunta));
-        return "quiz-pergunta"; // Certifique-se de que esse arquivo HTML existe na pasta templates/
-    }
-
-    /**
-     * Processa a resposta do usuário e avança para a próxima pergunta.
-     */
     @PostMapping("/quiz/responder")
-    public String responderPergunta(@RequestParam Long idQuiz,
-                                    @RequestParam String resposta,
-                                    HttpSession session) {
-
+    public String responder(@RequestParam String resposta, HttpSession session, Model model) {
         List<Quiz> quizzes = (List<Quiz>) session.getAttribute("quizzes");
-        Integer indicePergunta = (Integer) session.getAttribute("indicePergunta");
+        Integer indexAtual = (Integer) session.getAttribute("indexAtual");
         Integer pontuacao = (Integer) session.getAttribute("pontuacao");
+        Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
 
-        if (quizzes == null || indicePergunta == null || indicePergunta >= quizzes.size()) {
-            return "redirect:/quiz/resultado"; // Se todas foram respondidas, vai para a pontuação final
+        if (indexAtual == null || quizzes == null || indexAtual >= quizzes.size()) {
+            return "redirect:/quizzes"; // reinicia caso erro
         }
 
-        boolean correto = quizService.verificarResposta(idQuiz, resposta);
-        if (correto) {
-            session.setAttribute("pontuacao", pontuacao + 10);
+        Quiz quizAtual = quizzes.get(indexAtual);
+        boolean correta = quizAtual.getRespostaCorreta().equalsIgnoreCase(resposta);
+        if (correta) {
+            pontuacao += 10;
+            session.setAttribute("pontuacao", pontuacao);
         }
 
-        // Avança para a próxima pergunta
-        session.setAttribute("indicePergunta", indicePergunta + 1);
-        return "redirect:/quiz/pergunta";
-    }
+        // Salva a resposta
+        if (usuario != null) {
+            usuarioService.adicionarPontuacao(usuario.getId(), correta ? 10 : 0);
+            RespostaQuiz respostaQuiz = new RespostaQuiz();
+            respostaQuiz.setUsuario(usuario);
+            respostaQuiz.setQuizId(quizAtual.getId());
+            respostaQuiz.setRespostaUsuario(resposta);
+            respostaQuiz.setCorreta(correta);
+            respostaQuizService.salvar(respostaQuiz);
+        }
 
-    /**
-     * Exibe o resultado final do quiz com a pontuação acumulada.
-     */
-    @GetMapping("/quiz/resultado")
-    public String mostrarResultado(HttpSession session, Model model) {
-        Integer pontuacao = (Integer) session.getAttribute("pontuacao");
+        // Avança para próxima pergunta
+        indexAtual++;
+        session.setAttribute("indexAtual", indexAtual);
 
-        model.addAttribute("pontuacao", pontuacao);
-        return "quiz-resultado"; // Criar esse HTML para exibir a pontuação final
+        if (indexAtual >= quizzes.size()) {
+            model.addAttribute("pontuacao", pontuacao);
+            return "quiz-resultado";
+        } else {
+            model.addAttribute("quiz", quizzes.get(indexAtual));
+            return "quiz-pergunta";
+        }
     }
 }

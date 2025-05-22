@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>Dúvidas - Dentinho Feliz</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
 <div class="container">
-    <img src="/img/logo.png" alt="Dentinho Feliz" class="logo">
+    <img th:src="@{/img/logo.png}" alt="Dentinho Feliz" class="logo">
     <h2>Perguntas Frequentes</h2>
 
     <ul>
@@ -18,13 +18,13 @@
     </ul>
 
     <h3>Adicionar Dúvida</h3>
-    <form action="/duvidas" method="post">
+    <form th:action="@{/duvidas}" method="post">
         <input type="text" name="pergunta" placeholder="Digite sua dúvida" required>
         <input type="text" name="resposta" placeholder="Digite a resposta" required>
         <button type="submit">Adicionar</button>
     </form>
 
-    <a href="/home"><button>Voltar</button></a>
+    <a th:href="@{/home}"><button>Voltar</button></a>
 </div>
 
 </body>

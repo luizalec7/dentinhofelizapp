@@ -2,12 +2,10 @@ package com.dentinhofelizapp.repository;
 
 import com.dentinhofelizapp.model.Pontuacao;
 import com.dentinhofelizapp.model.Usuario;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-@Repository
-public interface PontuacaoRepository extends JpaRepository<Pontuacao, Long> {
-    List<Pontuacao> findByUsuario(Usuario usuario);
+public interface PontuacaoRepository extends MongoRepository<Pontuacao, String> {
+    List<Pontuacao> findByUsuario(Usuario usuario); // Agora suportado corretamente
 }

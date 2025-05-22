@@ -1,10 +1,7 @@
 package com.dentinhofelizapp.repository;
 
 import com.dentinhofelizapp.model.Quiz;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-@Repository
-public interface QuizRepository extends JpaRepository<Quiz, Long> {
+public interface QuizRepository extends MongoRepository<Quiz, String> {
 }
-

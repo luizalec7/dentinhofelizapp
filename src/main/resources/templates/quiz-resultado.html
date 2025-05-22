@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resultado do Quiz</title>
-    <link rel="stylesheet" href="/css/style.css"> <!-- Caso tenha um CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -12,7 +11,7 @@
     <h1>Resultado do Quiz</h1>
     <p>Sua pontuação final foi: <strong th:text="${pontuacao}"></strong> pontos.</p>
 
-    <a href="/quizzes"><button>Refazer Quiz</button></a>
+    <a href="/quizzes"><button>Reiniciar Quiz</button></a>
     <a href="/home"><button>Voltar para Home</button></a>
 </div>
 
