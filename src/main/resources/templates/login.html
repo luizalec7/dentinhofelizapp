@@ -11,19 +11,28 @@
     <img src="/img/logo.png" alt="Dentinho Feliz" class="logo">
     <h2>Faça seu login</h2>
 
-    <form id="loginForm" action="/login" method="post">
-        <input type="email" id="email" name="email" placeholder="E-mail" required>
-        <input type="password" id="senha" name="senha" placeholder="Senha" required>
+    <form th:action="@{/login}" method="post">
+        <input type="text" name="username" placeholder="E-mail" required>
+        <input type="password" name="password" placeholder="Senha" required>
         <button type="submit">Acessar</button>
     </form>
 
-    <p>Não tem uma conta? <a href="/cadastro">Cadastre-se</a></p>
+    <p>
+        Não tem uma conta?
+        <a th:href="@{/cadastro}">Cadastre-se</a>
+    </p>
 
-    <div th:if="${erro}">
-        <p style="color: red;" th:text="${erro}"></p>
+    <div th:if="${param.error}">
+        <p style="color: red;">Usuário ou senha inválidos.</p>
+    </div>
+
+    <div th:if="${param.logout}">
+        <p style="color: green;">Logout realizado com sucesso!</p>
     </div>
 </div>
 
-<script src="/js/scripts.js"></script>
+<!-- Remova este script se não estiver usando -->
+<!-- <script src="/js/scripts.js"></script> -->
+
 </body>
 </html>

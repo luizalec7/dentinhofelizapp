@@ -18,7 +18,7 @@ function exibirMensagem(tipo, mensagem) {
     setTimeout(() => alerta.remove(), 3000);
 }
 
-// Validar login antes de enviar
+// Validação do formulário de login
 document.addEventListener("DOMContentLoaded", function() {
     let loginForm = document.getElementById("loginForm");
     if (loginForm) {
@@ -29,36 +29,6 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!email || !senha) {
                 event.preventDefault();
                 exibirMensagem("erro", "Preencha todos os campos!");
-            }
-        });
-    }
-});
-
-// Definir alarme
-document.addEventListener("DOMContentLoaded", function() {
-    let alarmeForm = document.getElementById("alarmeForm");
-    if (alarmeForm) {
-        alarmeForm.addEventListener("submit", function(event) {
-            let horario = document.getElementById("horario").value;
-            if (!horario) {
-                event.preventDefault();
-                exibirMensagem("erro", "Escolha um horário para o alarme!");
-            } else {
-                exibirMensagem("sucesso", "Alarme definido com sucesso!");
-            }
-        });
-    }
-});
-
-// Enviar resposta do quiz
-document.addEventListener("DOMContentLoaded", function() {
-    let quizForm = document.getElementById("quizForm");
-    if (quizForm) {
-        quizForm.addEventListener("submit", function(event) {
-            let respostaSelecionada = document.querySelector("input[name='resposta']:checked");
-            if (!respostaSelecionada) {
-                event.preventDefault();
-                exibirMensagem("erro", "Escolha uma resposta!");
             }
         });
     }

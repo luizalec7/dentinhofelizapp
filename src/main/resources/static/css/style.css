@@ -58,14 +58,10 @@ a:hover {
     text-decoration: underline;
 }
 
-/* Estilização específica para as páginas */
+/* Estilo da logo */
 .logo {
     width: 150px;
     margin: 20px auto;
-}
-
-.quiz-container, .duvida-container, .alarme-container {
-    margin-top: 20px;
 }
 
 /* Lista de dúvidas */
@@ -79,11 +75,4 @@ li {
     margin: 5px 0;
     padding: 10px;
     border-radius: 5px;
-}
-
-/* Estilo para a mensagem do mascote */
-.mascote {
-    width: 80px;
-    display: block;
-    margin: 15px auto;
 }

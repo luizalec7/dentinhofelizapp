@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quizzes</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
 <h2>Quizzes</h2>
@@ -13,7 +13,7 @@
         <form th:action="@{/quiz/responder}" method="post">
             <input type="hidden" name="idQuiz" th:value="${quiz.id}">
             <div th:each="opcao : ${quiz.opcoes}">
-                <input type="radio" name="resposta" th:value="${opcao}" required>
+                <input type="radio" th:name="resposta" th:value="${opcao}">
                 <label th:text="${opcao}"></label><br>
             </div>
             <button type="submit">Responder</button>

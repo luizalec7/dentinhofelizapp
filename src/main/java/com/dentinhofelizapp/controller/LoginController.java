@@ -13,12 +13,9 @@ import java.util.Optional;
 @Controller
 public class LoginController {
 
-    @Autowired
-    private UsuarioService usuarioService;
-
     @GetMapping("/")
     public String mostrarLogin() {
-        return "login";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -26,26 +23,9 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String email,
-                        @RequestParam String senha,
-                        Model model,
-                        HttpSession session) {
-
-        Optional<Usuario> usuarioOptional = usuarioService.buscarPorEmailESenha(email, senha);
-
-        if (usuarioOptional.isEmpty()) {
-            model.addAttribute("erro", "E-mail ou senha inválidos");
-            return "login";
-        }
-
-        session.setAttribute("usuarioLogado", usuarioOptional.get());
-        return "redirect:/home";
-    }
-
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/login";
+        return "redirect:/login?logout=true";
     }
 }
