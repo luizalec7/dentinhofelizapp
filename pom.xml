@@ -14,7 +14,7 @@
 	<groupId>com.dentinhofelizapp</groupId>
 	<artifactId>dentinhofelizapp</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>dentinhofelizapp</name>
 	<description>Projeto Dentinho Feliz - Spring Boot</description>
 

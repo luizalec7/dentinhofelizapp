@@ -34,3 +34,6 @@ Este projeto é um módulo do sistema **Dentinho Feliz**, um aplicativo educativ
 - Azure DevOps Pipelines (YAML)
 - Azure App Service Linux (Java SE)
 - GitHub como SCM
+
+### LINK AZURE:
+https://dentinhofeliz-java-app.azurewebsites.net/
