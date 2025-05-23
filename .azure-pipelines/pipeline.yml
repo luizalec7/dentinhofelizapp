@@ -1,0 +1,27 @@
+trigger:
+  branches:
+    include:
+      - master
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+  azureSubscription: 'dentinho-service-connection'
+  appName: 'dentinhofeliz-java'
+  packagePath: '$(System.DefaultWorkingDirectory)/target/*.jar'
+
+steps:
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean package'
+      javaHomeOption: 'JDKVersion'
+      jdkVersionOption: '1.11'
+      mavenOptions: '-Xmx3072m'
+
+  - task: AzureWebApp@1
+    inputs:
+      azureSubscription: '$(azureSubscription)'
+      appName: '$(appName)'
+      package: '$(packagePath)'
